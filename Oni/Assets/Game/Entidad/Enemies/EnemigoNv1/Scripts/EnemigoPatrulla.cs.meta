@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: be5f80e8d1836c74aac7e3c5d268f936
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - flechaPrefab: {fileID: 2225533026224965674, guid: 3de5a25259e24404a9ee499b3f94ccd2, type: 3}
+  - puntoDisparo: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
