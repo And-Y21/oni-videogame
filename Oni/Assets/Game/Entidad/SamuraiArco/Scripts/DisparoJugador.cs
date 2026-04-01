@@ -18,7 +18,7 @@ public class DisparoJugador : MonoBehaviour
 
         int direccion = movePlayer.mirandoDerecha ? 1 : -1;
 
-        nuevaFlecha.GetComponent<Flecha>().SetDireccion(direccion);
-        Debug.Log("Se ejecutó Disparar");
+        nuevaFlecha.GetComponent<FlechaSamurai>().SetDireccion(direccion);
+        Debug.Log("Se ejecutÃ³ Disparar");
     }
 }
