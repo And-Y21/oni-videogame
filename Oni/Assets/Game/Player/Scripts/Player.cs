@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class Player : MonoBehaviour
 
     public int facingDirection = 1;
 
+    [Header("Health Settings")]
+    public int maxHealth = 3;
+    public int currentHealth;
+    private bool isDead = false;
+
     // Inputs
     private Vector2 moveInput;
     private bool jumpPressed;
@@ -33,16 +39,21 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rigidbody.gravityScale = normalGravity;
+        currentHealth = maxHealth;
     }
 
     void Update()
     {
+        if (isDead) return;
+
         Flip();
         HandleAnimations();
     }
 
     void FixedUpdate()
     {
+        if (isDead) return;
+
         ApplyVariableGravity();
         CheckGrounded();
         HandleMovement();
@@ -137,5 +148,30 @@ public class Player : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    }
+    public void TakeDamage(int damage)
+    {
+        if (isDead) return;
+
+        currentHealth -= damage;
+        Debug.Log("¡Golpe! Vida restante: " + currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        isDead = true;
+        Debug.Log("El Samurái ha muerto");
+        // animator.SetTrigger("Die");
+        Invoke("RestartLevel", 2f);
+    }
+
+    void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
