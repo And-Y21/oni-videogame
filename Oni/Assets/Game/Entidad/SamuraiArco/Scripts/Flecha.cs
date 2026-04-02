@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Flecha : MonoBehaviour
+public class FlechaSamurai : MonoBehaviour
 {
     [SerializeField] private float velocidad;
     [SerializeField] private float daño;
