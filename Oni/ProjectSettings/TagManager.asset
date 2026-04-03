@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Collectible
+  - Enemy
+  - PlayerAttack
+  - Quicksand
+  - Herb
   layers:
   - Default
   - TransparentFX
