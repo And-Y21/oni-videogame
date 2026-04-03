@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
-public class LoadingScreen : MonoBehaviour
+public class LoadingScreenBar : MonoBehaviour
 {
     [Header("UI")]
     public Image barraRelleno;
