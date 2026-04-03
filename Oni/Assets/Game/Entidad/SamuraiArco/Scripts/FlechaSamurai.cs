@@ -3,7 +3,7 @@ using UnityEngine;
 public class FlechaSamurai : MonoBehaviour
 {
     [SerializeField] private float velocidad;
-    [SerializeField] private float daño;
+    [SerializeField] private float daÃ±o;
 
     private int direccion = 1;
 
