@@ -37,6 +37,10 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
+<<<<<<< HEAD:Assets/Animations/portal animation.anim
+    genericBindings: []
+    pptrCurveMapping: []
+=======
     genericBindings:
     - serializedVersion: 2
       path: 0
@@ -51,6 +55,7 @@ AnimationClip:
     - {fileID: -6150384008709971305, guid: 51938990be39ad443813028f809423f1, type: 3}
     - {fileID: -4959259091351612375, guid: 51938990be39ad443813028f809423f1, type: 3}
     - {fileID: -4959259091351612375, guid: 51938990be39ad443813028f809423f1, type: 3}
+>>>>>>> menu:Oni/Assets/Game/Player/Animations/Jump.anim
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

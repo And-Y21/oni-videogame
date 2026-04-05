@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
+  - Collectible
+  - Enemy
+  - PlayerAttack
+  - Quicksand
+  - Herb
   layers:
   - Default
   - TransparentFX
