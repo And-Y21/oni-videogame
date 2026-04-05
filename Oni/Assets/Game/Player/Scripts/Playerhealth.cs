@@ -9,9 +9,14 @@ public class Playerhealth : MonoBehaviour
     [Header("UI")]
     public HealthBar healthBar;
 
+    private Player player; // 🔥 referencia al script Player
+
     void Start()
     {
         currentHealth = maxHealth;
+
+        player = GetComponent<Player>(); // 🔗 conecta con Player
+
         if (healthBar != null)
             healthBar.SetVidaMaxima(maxHealth);
     }
@@ -41,8 +46,7 @@ public class Playerhealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Jugador muerto");
-        
+        Debug.Log("Jugador muerto");        
         if(GameManager.instance != null)
         {
             GameManager.instance.GameOver();
