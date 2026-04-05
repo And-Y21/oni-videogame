@@ -896,8 +896,6 @@ MonoBehaviour:
   btnBack: {fileID: 610057513}
   selectorChar1: {fileID: 0}
   selectorChar2: {fileID: 0}
-  fadePanel: {fileID: 1460866805}
-  fadeDuration: 1
 --- !u!4 &222994473
 Transform:
   m_ObjectHideFlags: 0
