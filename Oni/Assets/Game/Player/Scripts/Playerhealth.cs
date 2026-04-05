@@ -42,6 +42,11 @@ public class Playerhealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Jugador muerto");
+        
+        if(GameManager.instance != null)
+        {
+            GameManager.instance.GameOver();
+        }
         // aquí puedes reiniciar nivel o animación de muerte
     }
 }

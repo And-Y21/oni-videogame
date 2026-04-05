@@ -1,19 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public GameObject gameOverPanel;
+    public Button reiniciarButton;
+    public Button menuButton;
+    private bool gameOverActivo = false;
 
     public int currentHearts = 3;
     public int maxHearts = 3;
-
     public int totalRedCrystals = 0;
     public int totalGreenCrystals = 0;
     public int totalPurpleCrystals = 0;
     public int totalHerbs = 0;
 
-    // ⭐ SNAPSHOT VARIABLES (To remember stats at start of level)
     private int startRed;
     private int startGreen;
     private int startPurple;
@@ -24,15 +28,101 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // survive scene changes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // prevent duplicates
+            Destroy(gameObject);
         }
     }
 
-    // ⭐ Call this when a level finishes loading
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        gameOverActivo = false;
+        gameOverPanel = null;
+        StartCoroutine(BuscarPanelGameOver());
+    }
+
+    IEnumerator BuscarPanelGameOver()
+    {
+        yield return null; // espera un frame
+
+        // Busca en todos los Transform de la escena
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll<GameObject>())
+        {
+            if (obj.name == "PanelGameOver" && obj.scene.isLoaded)
+            {
+                gameOverPanel = obj;
+                gameOverPanel.SetActive(false);
+
+                // Reasigna botones
+                Button[] botones = gameOverPanel.GetComponentsInChildren<Button>(true);
+                foreach (Button btn in botones)
+                {
+                    btn.onClick.RemoveAllListeners();
+                    if (btn.name == "BtnReiniciar")
+                    {
+                        btn.onClick.AddListener(ReiniciarEscena);
+                        reiniciarButton = btn;
+                    }
+                    if (btn.name == "BtnSalir")
+                    {
+                        btn.onClick.AddListener(IrAlMenu);
+                        menuButton = btn;
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    void Start()
+    {
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
+        if (reiniciarButton != null)
+            reiniciarButton.onClick.AddListener(ReiniciarEscena);
+        if (menuButton != null)
+            menuButton.onClick.AddListener(IrAlMenu);
+    }
+
+    public void GameOver()
+    {
+        if (gameOverActivo) return;
+        gameOverActivo = true;
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(true);
+        else
+            Debug.LogError("PanelGameOver no encontrado!");
+    }
+
+    public void ReiniciarEscena()
+    {
+        Time.timeScale = 1f;
+        gameOverActivo = false;
+        gameOverPanel = null;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("LoadingScreen");
+    }
+
+    public void IrAlMenu()
+    {
+        Time.timeScale = 1f;
+        PlayerPrefs.SetString("EscenaDestino", "Menu");
+        SceneManager.LoadScene("LoadingScreen");
+    }
+
     public void SaveLevelStartSnapshot()
     {
         startRed = totalRedCrystals;
@@ -41,10 +131,8 @@ public class GameManager : MonoBehaviour
         startHerb = totalHerbs;
     }
 
-    // ⭐ Call this if the player QUITS or RESTARTS mid-level
     public void DiscardLevelProgress()
     {
-        // Revert totals back to what they were at the start
         totalRedCrystals = startRed;
         totalGreenCrystals = startGreen;
         totalPurpleCrystals = startPurple;
@@ -56,13 +144,9 @@ public class GameManager : MonoBehaviour
     public void AddPurpleCrystal() { totalPurpleCrystals++; }
     public void AddHerb() { totalHerbs++; }
 
-    // Link this to your "Main Menu" Button
     public void GoToMainMenu()
     {
-        // 1. Unfreeze time (ALWAYS do this before loading scenes)
         Time.timeScale = 1f;
-
-        // 2. Load the Menu Scene
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Menu");
     }
 }
