@@ -10,6 +10,7 @@ TagManager:
   - PlayerAttack
   - Quicksand
   - Herb
+  - Boss
   layers:
   - Default
   - TransparentFX
