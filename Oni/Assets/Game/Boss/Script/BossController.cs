@@ -151,12 +151,43 @@ public class BossController : MonoBehaviour
             hitbox.DisableDamage();
     }
 
+    public void TakeDamage(int damage)
+    {
+        if (isDead) return;
+
+        currentHealth -= damage;
+
+        Debug.Log("Boss vida: " + currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
     void Die()
     {
+        if (isDead) return;
+
         isDead = true;
+
+        Debug.Log("BOSS MUERTO 💀");
+
         animator.SetBool("isDead", true);
 
+        // 🔒 detener movimiento
+        rb.linearVelocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Static;
+
+        // 🚫 desactivar daño
+        if (hitbox != null)
+            hitbox.DisableDamage();
+
+        // 🚧 abrir arena
         if (leftWall) leftWall.SetActive(false);
         if (rightWall) rightWall.SetActive(false);
+
+        // 🗑️ destruir después de animación
+        Destroy(gameObject, 6f);
     }
 }

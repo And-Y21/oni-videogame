@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rigidbody;
     public PlayerInput playerInput;
     public Animator animator;
+    public PlayerHitBox hitbox;
 
     [Header("Movement Variables")]
     public float speed;
@@ -36,6 +37,13 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer;
     private bool isGrounded;
 
+    [Header("Attack")]
+    public Transform attackHitboxTransform;
+    public float hitboxOffset = 1f;
+    public float attackCooldown = 0.5f;
+
+    private bool isAttacking = false;
+
     private void Start()
     {
         rigidbody.gravityScale = normalGravity;
@@ -48,6 +56,7 @@ public class Player : MonoBehaviour
 
         Flip();
         HandleAnimations();
+        UpdateHitboxPosition();
     }
 
     void FixedUpdate()
@@ -62,6 +71,8 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (isAttacking) return;
+
         float targetSpeed = moveInput.x * speed;
         rigidbody.linearVelocity = new Vector2(targetSpeed, rigidbody.linearVelocity.y);
     }
@@ -154,7 +165,7 @@ public class Player : MonoBehaviour
         if (isDead) return;
 
         currentHealth -= damage;
-        Debug.Log("¡Golpe! Vida restante: " + currentHealth);
+        Debug.Log("ï¿½Golpe! Vida restante: " + currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -162,16 +173,70 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Die()
+    public void OnAttack(InputValue value)
+    {
+        if (isDead) return;
+
+        if (value.isPressed && !isAttacking)
+        {
+            Debug.Log("ATAQUE");
+
+            isAttacking = true;
+            animator.SetTrigger("Attack");
+
+            Invoke(nameof(ResetAttack), attackCooldown);
+        }
+    }
+
+    void ResetAttack()
+    {
+        isAttacking = false;
+    }
+
+    public void EnableDamage()
+    {
+        if (hitbox == null)
+        {
+            Debug.LogError("HITBOX NO ASIGNADA");
+            return;
+        }
+
+        hitbox.EnableDamage();
+    }
+
+    public void DisableDamage()
+    {
+        if (hitbox == null) return;
+
+        hitbox.DisableDamage();
+    }
+
+    void UpdateHitboxPosition()
+    {
+        if (attackHitboxTransform == null) return;
+
+        attackHitboxTransform.localPosition = new Vector3(
+            facingDirection * hitboxOffset,
+            attackHitboxTransform.localPosition.y,
+            0
+        );
+    }
+
+    public void Die()
     {
         isDead = true;
-        Debug.Log("El Samurái ha muerto");
-        // animator.SetTrigger("Die");
+
+        animator.SetTrigger("Death");
+
+        Debug.Log("El SamurÃ¡i ha muerto");
+
+        rigidbody.linearVelocity = Vector2.zero;
+
         Invoke("RestartLevel", 2f);
     }
 
     void RestartLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        return;
     }
 }

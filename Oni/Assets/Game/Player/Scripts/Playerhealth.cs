@@ -9,9 +9,14 @@ public class Playerhealth : MonoBehaviour
     [Header("UI")]
     public HealthBar healthBar;
 
+    private Player player; // 🔥 referencia al script Player
+
     void Start()
     {
         currentHealth = maxHealth;
+
+        player = GetComponent<Player>(); // 🔗 conecta con Player
+
         if (healthBar != null)
             healthBar.SetVidaMaxima(maxHealth);
     }
@@ -42,6 +47,10 @@ public class Playerhealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Jugador muerto");
-        // aquí puedes reiniciar nivel o animación de muerte
+
+        if (player != null)
+        {
+            player.Die(); // 💀 llama a la muerte del Player
+        }
     }
 }
