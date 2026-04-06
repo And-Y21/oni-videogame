@@ -18,7 +18,9 @@ public class PasarNivel : MonoBehaviour
             else
             {
                 Debug.Log("No hay más niveles!");
-                SceneManager.LoadScene("Menu");
+                PlayerPrefs.SetString("EscenaDestino", "Menu");
+                SceneManager.LoadScene("LoadingScreen");
+                //SceneManager.LoadScene("Menu");
             }
         }
     }
