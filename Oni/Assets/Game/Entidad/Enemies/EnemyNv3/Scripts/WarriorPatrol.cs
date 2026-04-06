@@ -4,7 +4,7 @@ public class WarriorPatrol : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveSpeed = 2f;
-    public float detectionRange = 5f;
+    public float detectionRange = 15f;
     public float attackRange = 1.2f;
     public float attackCooldown = 1.5f;
 
@@ -17,7 +17,6 @@ public class WarriorPatrol : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private WarriorHealth health;
-
     private float lastAttackTime;
     private bool isAttackPlaying = false;
 
@@ -27,7 +26,6 @@ public class WarriorPatrol : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         health = GetComponent<WarriorHealth>();
-
         currentTarget = Point_AW;
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -43,9 +41,7 @@ public class WarriorPatrol : MonoBehaviour
         float dist = Vector2.Distance(transform.position, player.position);
 
         if (dist < attackRange)
-        {
             StopAndAttack();
-        }
         else if (dist < detectionRange)
         {
             isAttackPlaying = false;
@@ -60,20 +56,28 @@ public class WarriorPatrol : MonoBehaviour
 
     void Patrol()
     {
-        MoveTowards(currentTarget.position);
         animator.SetBool("isWalking", true);
+        MoveTowards(currentTarget.position);
         CheckDistance();
     }
 
     void Chase()
     {
-        MoveTowards(player.position);
         animator.SetBool("isWalking", true);
+
+        // Solo persigue si el jugador está entre sus puntos de patrulla
+        float minX = Mathf.Min(Point_AW.position.x, Point_BW.position.x);
+        float maxX = Mathf.Max(Point_AW.position.x, Point_BW.position.x);
+
+        if (player.position.x >= minX && player.position.x <= maxX)
+            MoveTowards(player.position);
+        else
+            Patrol(); // si el jugador está fuera, sigue patrullando
     }
 
     void StopAndAttack()
     {
-        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        rb.linearVelocity = Vector2.zero;
         animator.SetBool("isWalking", false);
         FlipTowards(player.position);
 
@@ -83,20 +87,40 @@ public class WarriorPatrol : MonoBehaviour
             lastAttackTime = Time.time;
             animator.ResetTrigger("Attack1");
             animator.SetTrigger("Attack1");
+            Invoke(nameof(HacerDano), 0.4f);
             Invoke(nameof(ResetAttackFlag), attackCooldown * 0.9f);
+        }
+    }
+
+    void HacerDano()
+    {
+        if (player == null) return;
+        float dist = Vector2.Distance(transform.position, player.position);
+        if (dist < attackRange + 0.5f)
+        {
+            Playerhealth playerHealth = player.GetComponent<Playerhealth>();
+            if (playerHealth == null) playerHealth = player.GetComponentInParent<Playerhealth>();
+            if (playerHealth == null) playerHealth = player.GetComponentInChildren<Playerhealth>();
+            if (playerHealth != null)
+                playerHealth.TakeDamage(10);
         }
     }
 
     void MoveTowards(Vector3 target)
     {
         Vector2 direction = (target - transform.position).normalized;
-        rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+        Vector3 newPos = new Vector3(
+            transform.position.x + direction.x * moveSpeed * Time.deltaTime,
+            transform.position.y,
+            0
+        );
+        rb.MovePosition(newPos);
         FlipTowards(target);
     }
 
     void CheckDistance()
     {
-        if (Vector2.Distance(transform.position, currentTarget.position) < 0.5f)
+        if (Mathf.Abs(transform.position.x - currentTarget.position.x) < 0.5f)
             currentTarget = (currentTarget == Point_AW) ? Point_BW : Point_AW;
     }
 

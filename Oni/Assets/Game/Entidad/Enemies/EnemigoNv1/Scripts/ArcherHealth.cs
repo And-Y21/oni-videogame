@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpearmanHealth : MonoBehaviour
+public class ArcherHealth : MonoBehaviour
 {
     [Header("Health Settings")]
     public float maxHealth = 10f;
@@ -8,13 +8,13 @@ public class SpearmanHealth : MonoBehaviour
     public bool isDead = false;
 
     private Animator animator;
-    private SpearmanPatrol patrol;
+    private EnemigoPatrulla patrol;
 
     void Start()
     {
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
-        patrol = GetComponent<SpearmanPatrol>();
+        patrol = GetComponent<EnemigoPatrulla>();
     }
 
     public void TakeDamage(float damage)
