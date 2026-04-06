@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -10,15 +10,15 @@ public class LoadingScreenBar : MonoBehaviour
     public Image barraRelleno;
     public TextMeshProUGUI textoCargando;
 
-    [Header("Configuración")]
+    [Header("ConfiguraciÃ³n")]
     public float tiempoMinimo = 2f;
 
     private string escenaDestino;
 
     void Start()
     {
-        // Recupera qué escena cargar
         escenaDestino = PlayerPrefs.GetString("EscenaDestino", "LevelOne");
+        Debug.Log("LoadingScreenBar va a cargar: " + escenaDestino); // â† agrega esto
         StartCoroutine(CargarEscena());
     }
 
@@ -36,10 +36,10 @@ public class LoadingScreenBar : MonoBehaviour
             // Progreso real de carga (0 a 0.9)
             float progresoCarga = Mathf.Clamp01(operacion.progress / 0.9f);
 
-            // Progreso por tiempo mínimo
+            // Progreso por tiempo mÃ­nimo
             float progresoTiempo = Mathf.Clamp01(tiempoTranscurrido / tiempoMinimo);
 
-            // Usa el menor para que no salte rápido
+            // Usa el menor para que no salte rÃ¡pido
             float progresoFinal = Mathf.Min(progresoCarga, progresoTiempo);
 
             // Actualiza la barra
@@ -47,7 +47,7 @@ public class LoadingScreenBar : MonoBehaviour
 
             // Actualiza el texto
             int porcentaje = Mathf.RoundToInt(progresoFinal * 100);
-            textoCargando.text = "CARGANDO... " + porcentaje + "%";
+            textoCargando.text = "LOADING... " + porcentaje + "%";
 
             // Cuando llega al 100% activa la escena
             if (progresoFinal >= 1f)

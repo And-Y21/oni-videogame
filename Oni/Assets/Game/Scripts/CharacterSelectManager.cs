@@ -53,7 +53,7 @@ public class CharacterSelectManager : MonoBehaviour
     {
         if (selectedCharacter == -1) return;
         PlayerPrefs.SetInt("SelectedCharacter", selectedCharacter);
-        PlayerPrefs.SetString("EscenaDestino", "LevelOne");
+        PlayerPrefs.SetString("EscenaDestino", "SampleScene");
         SceneManager.LoadScene("LoadingScreen");
     }
 
