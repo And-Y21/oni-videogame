@@ -4,8 +4,13 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - Ground
+  - Collectible
   - Enemy
-  - Arrow
+  - PlayerAttack
+  - Quicksand
+  - Herb
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -42,6 +47,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 3023589867
     locked: 0
   m_RenderingLayers:
   - Default
