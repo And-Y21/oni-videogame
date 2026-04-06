@@ -3,7 +3,7 @@
 public class WarriorHealth : MonoBehaviour
 {
     [Header("Health Settings")]
-    public float maxHealth = 100f;
+    public float maxHealth = 10f;
     private float currentHealth;
     public bool isDead = false;
 
