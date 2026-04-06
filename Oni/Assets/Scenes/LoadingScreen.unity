@@ -672,7 +672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoadingScreen
   barraRelleno: {fileID: 278737872}
   textoCargando: {fileID: 1170737253}
-  tiempoMinimo: 2
+  tiempoMinimo: 1
 --- !u!4 &1107268562
 Transform:
   m_ObjectHideFlags: 0

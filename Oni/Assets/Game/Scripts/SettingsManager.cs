@@ -49,6 +49,6 @@ public class SettingsManager : MonoBehaviour
 
         // Cambia el texto del botón
         if (btnMusicaTexto != null)
-            btnMusicaTexto.text = musicaActiva ? "♪ ON" : "♪ OFF";
+            btnMusicaTexto.text = musicaActiva ? "ON" : "OFF";
     }
     }

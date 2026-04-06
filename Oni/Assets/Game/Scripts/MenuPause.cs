@@ -73,7 +73,8 @@ public class MenuPause : MonoBehaviour
     public void BackToMenu()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("Menu");
+        PlayerPrefs.SetString("EscenaDestino", "Menu");
+        SceneManager.LoadScene("LoadingScreen");
     }
 
     public void ToggleMusica()
