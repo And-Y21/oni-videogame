@@ -109,10 +109,14 @@ public class GameManager : MonoBehaviour
 
     public void ReiniciarEscena()
     {
-        Time.timeScale = 1f;
-        gameOverActivo = false;
-        gameOverPanel = null;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //Time.timeScale = 1f;
+        //gameOverActivo = false;
+        //gameOverPanel = null;
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene("LoadingScreen");
+        Time.timeScale = 1;
+        // Guarda el nivel actual para que LoadingScreen sepa a dónde ir
+        PlayerPrefs.SetString("EscenaDestino", SceneManager.GetActiveScene().name);
         SceneManager.LoadScene("LoadingScreen");
     }
 
