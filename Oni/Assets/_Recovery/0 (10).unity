@@ -564,7 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Playerhealth
   maxHealth: 150
-  healthBar: {fileID: 1920705496}
+  healthBar: {fileID: 0}
 --- !u!114 &77286727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98284,7 +98284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c61694f22d7bda47acd1fa7ae8edbad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowPlayer
-  player: {fileID: 77286731}
+  player: {fileID: 555000923}
   offset: {x: 0.2, y: 1.5, z: 2}
 --- !u!1 &2098604989
 GameObject:
