@@ -5,13 +5,15 @@ public class SpearmanPatrol : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 1.5f;
 
+    [Header("Patrol Points")]
+    public Transform pointA;
+    public Transform pointB;
+
     [Header("Combat Settings")]
     public float detectionRange = 5f;
     public float attackRange = 1.2f;
     public float attackCooldown = 1.5f;
 
-    private Transform pointA;
-    private Transform pointB;
     private Transform player;
     private Vector3 currentTarget;
     private Animator animator;
@@ -23,9 +25,6 @@ public class SpearmanPatrol : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        pointA = GameObject.Find("Point_A")?.transform;
-        pointB = GameObject.Find("Point_B")?.transform;
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null) player = playerObj.transform;
@@ -41,9 +40,7 @@ public class SpearmanPatrol : MonoBehaviour
         float dist = Vector2.Distance(transform.position, player.position);
 
         if (dist < attackRange)
-        {
             StopAndAttack();
-        }
         else if (dist < detectionRange)
         {
             isAttackPlaying = false;
@@ -59,7 +56,11 @@ public class SpearmanPatrol : MonoBehaviour
     void Patrol()
     {
         animator.SetBool("isWalking", true);
-        transform.position = Vector3.MoveTowards(transform.position, currentTarget, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            new Vector3(currentTarget.x, transform.position.y, 0),
+            moveSpeed * Time.deltaTime
+        );
         CheckDestination();
     }
 
@@ -75,16 +76,31 @@ public class SpearmanPatrol : MonoBehaviour
         animator.SetBool("isWalking", false);
         FlipTowards(player.position);
 
-        // Solo atacar si el cooldown pasó y no hay ataque en curso
         if (Time.time > lastAttackTime + attackCooldown && !isAttackPlaying)
         {
             isAttackPlaying = true;
             lastAttackTime = Time.time;
             animator.ResetTrigger("Attack1");
             animator.SetTrigger("Attack1");
-
-            // Liberar el flag cuando termine la animación
+            Invoke(nameof(HacerDano), 0.4f);
             Invoke(nameof(ResetAttackFlag), attackCooldown * 0.9f);
+        }
+    }
+
+    void HacerDano()
+    {
+        if (player == null) { Debug.Log("Player null"); return; }
+
+        float dist = Vector2.Distance(transform.position, player.position);
+        Debug.Log("HacerDano - distancia: " + dist + " | rango: " + (attackRange + 0.5f));
+
+        if (dist < attackRange + 0.5f)
+        {
+            Playerhealth health = player.GetComponentInChildren<Playerhealth>();
+            if (health != null)
+                health.TakeDamage(10);
+            else
+                Debug.Log("No encontró Playerhealth");
         }
     }
 
@@ -95,7 +111,7 @@ public class SpearmanPatrol : MonoBehaviour
 
     void CheckDestination()
     {
-        if (Vector3.Distance(transform.position, currentTarget) < 0.1f)
+        if (Mathf.Abs(transform.position.x - currentTarget.x) < 0.1f)
         {
             currentTarget = (currentTarget == pointA.position) ? pointB.position : pointA.position;
             FlipTowards(currentTarget);
