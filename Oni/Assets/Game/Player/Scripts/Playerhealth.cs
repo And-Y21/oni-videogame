@@ -8,23 +8,29 @@ public class Playerhealth : MonoBehaviour
 
     [Header("UI")]
     public HealthBar healthBar;
-
-    private Player player; // 🔥 referencia al script Player
+    private Player player;
 
     void Start()
     {
-        currentHealth = maxHealth;
+        player = GetComponent<Player>();
 
-        player = GetComponent<Player>(); // 🔗 conecta con Player
+        // Recupera la vida guardada, si no hay usa la máxima
+        currentHealth = PlayerPrefs.GetInt("VidaActual", maxHealth);
 
         if (healthBar != null)
+        {
             healthBar.SetVidaMaxima(maxHealth);
+            healthBar.SetVida(currentHealth);
+        }
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        // Guarda la vida actual
+        PlayerPrefs.SetInt("VidaActual", currentHealth);
 
         if (healthBar != null)
             healthBar.SetVida(currentHealth);
@@ -40,17 +46,21 @@ public class Playerhealth : MonoBehaviour
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
+        // Guarda la vida actual
+        PlayerPrefs.SetInt("VidaActual", currentHealth);
+
         if (healthBar != null)
             healthBar.SetVida(currentHealth);
     }
 
     void Die()
     {
-        Debug.Log("Jugador muerto");        
-        if(GameManager.instance != null)
-        {
+        Debug.Log("Jugador muerto");
+
+        // Al morir borra la vida guardada para que reinicie con vida llena
+        PlayerPrefs.DeleteKey("VidaActual");
+
+        if (GameManager.instance != null)
             GameManager.instance.GameOver();
-        }
-        // aquí puedes reiniciar nivel o animación de muerte
     }
 }
