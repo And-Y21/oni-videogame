@@ -50,12 +50,13 @@ public class CharacterSelectManager : MonoBehaviour
     }
 
     public void StartGame()
-    {
-        if (selectedCharacter == -1) return;
-        PlayerPrefs.SetInt("SelectedCharacter", selectedCharacter);
-        PlayerPrefs.SetString("EscenaDestino", "SampleScene");
-        SceneManager.LoadScene("LoadingScreen");
-    }
+{
+    if (selectedCharacter == -1) return;
+    PlayerPrefs.SetInt("SelectedCharacter", selectedCharacter);
+    PlayerPrefs.SetString("EscenaDestino", "SampleScene");
+    PlayerPrefs.DeleteKey("VidaActual"); // ← borra vida guardada al iniciar nuevo juego
+    SceneManager.LoadScene("LoadingScreen");
+}
 
     public void BackToMenu()
     {
