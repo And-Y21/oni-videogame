@@ -44,6 +44,9 @@ public class Player : MonoBehaviour
 
     private bool isAttacking = false;
 
+    public AudioSource audioSource;
+    public AudioClip sonidoEspada;
+
     private void Start()
     {
         rigidbody.gravityScale = normalGravity;
@@ -180,6 +183,11 @@ public class Player : MonoBehaviour
         if (value.isPressed && !isAttacking)
         {
             Debug.Log("ATAQUE");
+
+            if (audioSource != null && sonidoEspada != null)
+            {
+                audioSource.PlayOneShot(sonidoEspada);
+            }
 
             isAttacking = true;
             animator.SetTrigger("Attack");
