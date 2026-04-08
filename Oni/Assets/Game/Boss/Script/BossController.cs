@@ -11,7 +11,7 @@ public class BossController : MonoBehaviour
     private Rigidbody2D rb;
 
     [Header("Movimiento")]
-    public float speed = 3f;
+    public float speed = 2f;
     public float attackRange = 2f;
     public float detectionRange = 6f;
 

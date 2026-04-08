@@ -14,18 +14,21 @@ public class MonkController : MonoBehaviour
     public float duracionTexto = 3f;
 
     private SpriteRenderer sr;
+    private Animator animator;
 
     void Start()
     {
-        // Obtener SpriteRenderer
         sr = GetComponent<SpriteRenderer>();
-        // Iniciar diálogo
+        animator = GetComponent<Animator>();
         StartCoroutine(Hablar());
     }
 
     void Update()
     {
-        // Evitar errores si no hay player
+        if (animator != null)
+        {
+            animator.Play("Idle");
+        }
         if (player == null || sr == null) return;
 
         // Mirar al jugador
