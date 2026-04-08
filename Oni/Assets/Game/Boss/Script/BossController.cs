@@ -34,6 +34,9 @@ public class BossController : MonoBehaviour
     private bool isDead = false;
     private bool isActivated = false;
 
+    public AudioSource audioSource;
+    public AudioClip deathSound;
+
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -172,6 +175,11 @@ public class BossController : MonoBehaviour
         isDead = true;
 
         Debug.Log("BOSS MUERTO 💀");
+        
+        if (audioSource && deathSound)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
 
         animator.SetBool("isDead", true);
 
