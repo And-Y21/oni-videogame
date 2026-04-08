@@ -1107,6 +1107,10 @@ PrefabInstance:
       propertyPath: pointB
       value: 
       objectReference: {fileID: 1720877540}
+    - target: {fileID: 2486244430207892900, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5457560026724308101, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 26.6
@@ -1286,6 +1290,10 @@ PrefabInstance:
       propertyPath: pointB
       value: 
       objectReference: {fileID: 1498719786}
+    - target: {fileID: 2486244430207892900, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5457560026724308101, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.786116
@@ -1333,8 +1341,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8212397384892618679, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 476759726}
   m_SourcePrefab: {fileID: 100100000, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+--- !u!1 &476759725 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8212397384892618679, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+  m_PrefabInstance: {fileID: 476759724}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &476759726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476759725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d87852d94eacb46926d13428e3a60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpearmanHealth
+  maxHealth: 10
+  isDead: 0
 --- !u!1 &518895188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2468,6 +2498,10 @@ PrefabInstance:
       propertyPath: pointB
       value: 
       objectReference: {fileID: 1844475702}
+    - target: {fileID: 2486244430207892900, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5457560026724308101, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -56.7
@@ -2515,8 +2549,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8212397384892618679, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 700689022}
   m_SourcePrefab: {fileID: 100100000, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+--- !u!1 &700689021 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8212397384892618679, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+  m_PrefabInstance: {fileID: 700689020}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &700689022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700689021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d87852d94eacb46926d13428e3a60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpearmanHealth
+  maxHealth: 10
+  isDead: 0
 --- !u!1 &706799245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2849,6 +2905,10 @@ PrefabInstance:
       propertyPath: pointB
       value: 
       objectReference: {fileID: 2132815946}
+    - target: {fileID: 2486244430207892900, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5457560026724308101, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.391108
@@ -2896,8 +2956,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8212397384892618679, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 813979852}
   m_SourcePrefab: {fileID: 100100000, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+--- !u!1 &813979851 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8212397384892618679, guid: 050ec5386bbffa84db339b1472996f3c, type: 3}
+  m_PrefabInstance: {fileID: 813979850}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &813979852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813979851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d87852d94eacb46926d13428e3a60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpearmanHealth
+  maxHealth: 10
+  isDead: 0
 --- !u!1 &831726516
 GameObject:
   m_ObjectHideFlags: 0
