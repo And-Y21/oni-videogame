@@ -6,9 +6,9 @@ public class SpearDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.transform.root == transform.root) return; // ignora al propio enemigo
+        if (other.transform.root == transform.root) return;
 
-        Debug.Log("HitboxLanza tocó: " + other.gameObject.name + " tag: " + other.tag);
+        Debug.Log("HitboxLanza tocï¿½: " + other.gameObject.name + " tag: " + other.tag);
 
         if (other.CompareTag("Player"))
         {
