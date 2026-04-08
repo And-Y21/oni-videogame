@@ -21,15 +21,44 @@ public class PlayerHitBox : MonoBehaviour
     {
         if (!canDamage || hasHit) return;
 
-        Debug.Log("Golpe conectado con: " + collision.name);
-
-        BossController boss = collision.GetComponentInParent<BossController>();
-
+        // Boss
+        BossController boss = collision.GetComponent<BossController>();
+        if (boss == null) boss = collision.GetComponentInParent<BossController>();
         if (boss != null)
         {
             hasHit = true;
-            Debug.Log("DAÑO AL BOSS");
             boss.TakeDamage(damage);
+            return;
+        }
+
+        // Warrior
+        WarriorHealth warrior = collision.GetComponent<WarriorHealth>();
+        if (warrior == null) warrior = collision.GetComponentInParent<WarriorHealth>();
+        if (warrior != null)
+        {
+            hasHit = true;
+            warrior.TakeDamage(damage);
+            return;
+        }
+
+        // Spearman
+        SpearmanHealth spearman = collision.GetComponent<SpearmanHealth>();
+        if (spearman == null) spearman = collision.GetComponentInParent<SpearmanHealth>();
+        if (spearman != null)
+        {
+            hasHit = true;
+            spearman.TakeDamage(damage);
+            return;
+        }
+
+        // Archer
+        ArcherHealth archer = collision.GetComponent<ArcherHealth>();
+        if (archer == null) archer = collision.GetComponentInParent<ArcherHealth>();
+        if (archer != null)
+        {
+            hasHit = true;
+            archer.TakeDamage(damage);
+            return;
         }
     }
-}
+ }
